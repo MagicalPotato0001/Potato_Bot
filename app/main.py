@@ -10,7 +10,7 @@ import os
 
 # Argument parser setup
 parser = argparse.ArgumentParser(description="A simple Discord bot")
-parser.add_argument('token', type=str, help='The Discord bot token')
+parser.add_argument('--token', type=str, help='The Discord bot token')
 args = parser.parse_args()
 arg_token = args.token
 
@@ -70,6 +70,7 @@ if __name__ == "__main__":
         if not os.path.exists('downloads'):
             os.mkdir('downloads')
         if not os.path.exists('server_settings.json'):
+            print("Discord Token:", arg_token)
             # If the file doesn't exist, create it and write the JSON data
             data = {
                 "command_prefix": "!",
@@ -81,7 +82,6 @@ if __name__ == "__main__":
             with open('server_settings.json', 'w') as file:
                 json.dump(data, file, indent=4)
                 print('Settings file created, please alter as needed!')
-                quit()
         with open('server_settings.json', 'r') as file:
             settings = json.load(file)
     except Exception as e:
